@@ -1,0 +1,1 @@
+export const match = (value) => !Number.isNaN(Number(value))
