@@ -19,7 +19,7 @@ export const userRelations = relations(users, ({ many }) => ({
 export const breadPosts = pgTable('bread_posts', {
   id: serial().primaryKey(),
   userId: integer("user_id").notNull().references(() => users.id),
-  name: varchar({ length: 255 }).notNull().unique(),
+  name: varchar({ length: 255 }).notNull(),
   price: integer().notNull(),
   description: text(),
   release: date().default(sql`CURRENT_DATE`)

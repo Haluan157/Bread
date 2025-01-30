@@ -40,7 +40,7 @@ export const actions = {
     cookies.set("user", token as string, {
       path: '/',
       httpOnly: true,
-      maxAge: 60 * 60
+      maxAge: 60 * 60,
     })
     
     re = !re

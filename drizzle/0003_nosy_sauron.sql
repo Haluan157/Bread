@@ -1,0 +1,1 @@
+ALTER TABLE "bread_posts" DROP CONSTRAINT "bread_posts_name_unique";

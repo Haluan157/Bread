@@ -17,6 +17,7 @@
     <li><a href="/">Home</a></li>
     <li><a href="/profile">Profile</a></li>
     <li><a href="/logout">Logout</a></li>
+    <li><a href="/users/">Cari Pengguna</a></li>
   </ul>
     {/if}
   {@render children()}
