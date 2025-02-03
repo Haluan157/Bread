@@ -18,7 +18,7 @@ export const userRelations = relations(users, ({ many }) => ({
 
 export const breadPosts = pgTable('bread_posts', {
   id: serial().primaryKey(),
-  userId: integer("user_id").notNull().references(() => users.id),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
   name: varchar({ length: 255 }).notNull(),
   price: integer().notNull(),
   description: text(),
@@ -31,8 +31,8 @@ export const breadRelations = relations(breadPosts, ({ one, many }) => ({
 }))
 
 export const wishlist = pgTable('wishlist', {
-  userId: integer('user_id').notNull().references(() => users.id),
-  breadId: integer('bread_id').notNull().references(() => breadPosts.id)
+  userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'set null' }),
+  breadId: integer('bread_id').notNull().references(() => breadPosts.id, { onDelete: 'cascade' })
 }, t => ({
   un: unique('unique_id').on(t.userId, t.breadId)
 }))

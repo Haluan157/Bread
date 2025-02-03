@@ -9,12 +9,13 @@ export const register = db.insert(users).values({
   name: sql.placeholder("name"),
   email: sql.placeholder("email"),
   password: sql.placeholder("password")
-}).returning({ id: users.id, name: users.name }).prepare("register")
+}).returning({ id: users.id, role: users.role }).prepare("register")
 
 export const login = db.select({
     id: users.id,
     name: users.name,
-    password: users.password
+    password: users.password,
+    role: users.role,
   })
   .from(users)
   .where(eq(users.email, sql.placeholder("email")))
@@ -22,13 +23,6 @@ export const login = db.select({
   .prepare("login")
   
 // select user
-
-export const role = db.select({
-    role: users.role
-  })
-  .from(users)
-  .where(eq(users.id, sql.placeholder("id")))
-  .prepare("role")
   
 export const xp = db.select({
   xp: users.xp,

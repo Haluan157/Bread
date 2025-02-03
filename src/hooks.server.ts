@@ -1,11 +1,12 @@
 import type { Handle } from '@sveltejs/kit';
-import { role, xp } from '$lib/server/utilsUser'
+import { xp } from '$lib/server/utilsUser'
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '$env/static/private'
 
 interface JwtPayload {
   id: number
   name: string
+  role: string
   [key: string]: unknown
 }
 
@@ -24,12 +25,9 @@ export const handle: Handle = async ({ event, resolve }) => {
       })
     })
     
-    const [[userRole],[x]] = await Promise.all([
-      role.execute({ id: data.id }),
-      event.url.pathname.startsWith("/profile") ? xp.execute({ id: data.id }) : Promise.resolve([])
-    ])
+    const [x] = event.url.pathname.startsWith("/profile") ? await xp.execute({ id: data.id }):[]
     
-    event.locals.role = userRole.role
+    event.locals.role = data.role
     event.locals.name = data.name
     event.locals.id = data.id
     

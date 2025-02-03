@@ -1,8 +1,15 @@
 import bcrypt from 'bcryptjs'
 import { register } from '$lib/server/utilsUser'
-import { redirect } from '@sveltejs/kit'
+import { redirect, fail } from '@sveltejs/kit'
+import { dev } from '$app/environment';
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '$env/static/private'
+
+export const load = async ({ url, locals }) => {
+  if (Object.keys(locals).length > 0) {
+    redirect(303, "/")
+  }
+}
 
 export const actions = {
   default: async ({ request, cookies }) => {
@@ -13,19 +20,26 @@ export const actions = {
     const password = await bcrypt.hash(data.get("password") as string, 10)
     
     const userData = {
-      name: data.get("name"),
+      name: (data.get("name") as string).trim(),
       email: data.get("email"),
       password
     }
     
+    if (userData.name.length === 0) {
+      return fail(400, {
+        message: "Mohon beri nama dengan benar! Jangan hanya spasi"
+      })
+    }
+    
     const [dataUser] = await register.execute(userData)
     
-    const {id, name } = dataUser
+    const {id, role } = dataUser
     
     const token = await new Promise<string | Error>((resolve, reject) => {
       jwt.sign({
       id,
-      name
+      name: userData.name,
+      role
     }, SECRET_KEY, {
       expiresIn: "1h"
     }, (err, token) => {
@@ -41,12 +55,16 @@ export const actions = {
       path: '/',
       httpOnly: true,
       maxAge: 60 * 60,
+      secure: !dev,
+      sameSite: "lax"
     })
     
     re = !re
     
     } catch (e) {
-      console.error(e)
+      return fail(400, {
+        message: "Database error atau ada data duplikat. Jika data duplikat, sialakan gunakan username atau email lain!"
+      })
     }
     
     if (re) {

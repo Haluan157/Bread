@@ -8,7 +8,7 @@ export const load = async ({ locals }) => {
 }
 
 export const actions = {
-  default: async ({ locals, request }) => {
+  default: async ({ locals, request, cookies }) => {
     const data = await request.formData()
     const bio = data.get("bio")
     

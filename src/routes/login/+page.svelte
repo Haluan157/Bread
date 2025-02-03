@@ -4,8 +4,8 @@
 </script>
 
 <form method="POST" use:enhance>
-  <input type="email" name="email" required />
-  <input type="password" name="password" minlength="8" required />
+  <input type="email" placeholder="Masukkan Email" name="email" required />
+  <input type="password" placeholder="Masukkan Password" name="password" minlength="8" required />
   <button type="submit">Login</button>
 </form>
   <p>{form?.message}</p>

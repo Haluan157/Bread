@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@vercel/postgres':
-        specifier: ^0.10.0
-        version: 0.10.0
+      '@neondatabase/serverless':
+        specifier: ^0.10.4
+        version: 0.10.4
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -19,7 +19,7 @@ importers:
         version: 16.4.7
       drizzle-orm:
         specifier: ^0.38.4
-        version: 0.38.4(@types/pg@8.11.6)(@vercel/postgres@0.10.0)(postgres@3.4.5)
+        version: 0.38.4(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@vercel/postgres@0.10.0)(postgres@3.4.5)
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
@@ -669,6 +669,9 @@ packages:
     resolution: {integrity: sha512-llMXd39jtP0HpQLVI37Bf1m2ADlEb35GYSh1SDSLsBhR+5iCxiNGlT31yqbNtVHygHAtMy6dWFERpU2JgufhPg==}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@neondatabase/serverless@0.10.4':
+    resolution: {integrity: sha512-2nZuh3VUO9voBauuh+IGYRhGU/MskWHt1IuZvHcJw6GLjDgtqj/KViKo7SIrLdGLdot7vFbiRRw+BgEy3wT9HA==}
 
   '@neondatabase/serverless@0.9.5':
     resolution: {integrity: sha512-siFas6gItqv6wD/pZnvdu34wEqgG3nSE6zWZdq5j2DEsa+VvX8i/5HXJOo06qrw5axPXn+lGCxeR+NLaSPIXug==}
@@ -1952,9 +1955,14 @@ snapshots:
       - encoding
       - supports-color
 
+  '@neondatabase/serverless@0.10.4':
+    dependencies:
+      '@types/pg': 8.11.6
+
   '@neondatabase/serverless@0.9.5':
     dependencies:
       '@types/pg': 8.11.6
+    optional: true
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -2167,6 +2175,7 @@ snapshots:
       ws: 8.18.0(bufferutil@4.0.9)
     transitivePeerDependencies:
       - utf-8-validate
+    optional: true
 
   abbrev@3.0.0: {}
 
@@ -2222,6 +2231,7 @@ snapshots:
   bufferutil@4.0.9:
     dependencies:
       node-gyp-build: 4.8.4
+    optional: true
 
   chokidar@4.0.3:
     dependencies:
@@ -2272,8 +2282,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.38.4(@types/pg@8.11.6)(@vercel/postgres@0.10.0)(postgres@3.4.5):
+  drizzle-orm@0.38.4(@neondatabase/serverless@0.10.4)(@types/pg@8.11.6)(@vercel/postgres@0.10.0)(postgres@3.4.5):
     optionalDependencies:
+      '@neondatabase/serverless': 0.10.4
       '@types/pg': 8.11.6
       '@vercel/postgres': 0.10.0
       postgres: 3.4.5
@@ -2819,6 +2830,7 @@ snapshots:
   ws@8.18.0(bufferutil@4.0.9):
     optionalDependencies:
       bufferutil: 4.0.9
+    optional: true
 
   yallist@5.0.0: {}
 
